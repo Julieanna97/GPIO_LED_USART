@@ -1,8 +1,8 @@
 # GPIO_LED
-En applikation som kontrollerar hårdvaran av STM32F411xC i syfte att kontrollera IOn via utvecklingskortets pins
+An application that controls the hardware of the STM32F411xC in order to control the IOn via the pins of the development board
 
-Projektet kommer att består utav följande struktur:
-- main.c - Huvudansvarig för applikationens användning
-- my_stm32f4_gpio_driver.h - Definitioner av beteckningar och funktioner som kommer kallas på utav drivrutinen i sig
-- my_stm32f4_gpio_lib.h - Definitioner av hårdvaran vi behöver kommunicera med
-- my_stm32f4_gpio_lib.c - Tillämpar vi funktionalitet
+The project will consist of the following structure:
+- main.c - Mainly responsible for the application's use
+- my_stm32f4_gpio_driver.h - Definitions of designations and functions that will be called from the driver itself
+- my_stm32f4_gpio_lib.h - Definitions of the hardware we need to communicate with
+- my_stm32f4_gpio_lib.c - We apply functionality
