@@ -8,14 +8,14 @@
  * with the development card 
  */
 #define PERIPH_BASE 0x40000000U // Base address for peripheral work
-#define AHB1PEIPH_BASE (PERIPH_BASE + 0x20000U) // An offset from the origin leading to the peripheral register AHB1
+#define AHB1PERIPH_BASE (PERIPH_BASE + 0x20000U) // An offset from the origin leading to the peripheral register AHB1
 #define RCC_BASE (AHB1PERIPH_BASE + 0x3800U) // An offset from the origin leading to the clock-register for the GPIO
 
 /**
  * @brief Defines memory addresses for different
  * GPIO ports on the communication bus
  */
-#define GPIOA_BASE (AHB1PERIPH_BASE + 0x0000U)
+#define GPIOA_BASE (AHB1PERIPH_BASE + 0x00U)
 #define GPIOB_BASE (AHB1PERIPH_BASE + 0x0400U)
 #define GPIOC_BASE (AHB1PERIPH_BASE + 0x0800U)
 #define GPIOD_BASE (AHB1PERIPH_BASE + 0x0C00U)
@@ -31,15 +31,15 @@
 typedef struct
 {
     /* General purpose I/O reference registers */
-    __IO uint32_t MODER;
-    __IO uint32_t OTYPER; 
-    __IO uint32_t OSPEEDR;
-    __IO uint32_t PUPDR;
-    __IO uint32_t IDR;
-    __IO uint32_t ODR;
-    __IO uint32_t BSRR;
-    __IO uint32_t LCKR;
-    __IO uint32_t AFR[2];
+    __IO uint32_t MODER;    /* Mode register */
+    __IO uint32_t OTYPER;   /* Output type register */
+    __IO uint32_t OSPEEDR;  /* Output speed register */
+    __IO uint32_t PUPDR;    /* Pull-up/pull-down register */
+    __IO uint32_t IDR;      /* Input data register */
+    __IO uint32_t ODR;      /* Output data register */
+    __IO uint32_t BSRR;     /* Bit set/reset register */
+    __IO uint32_t LCKR;     /* Configuration lock register */
+    __IO uint32_t AFR[2];   /* Alternate function low/high register */
 
 }GPIO_TypeDef;
 
@@ -80,20 +80,21 @@ typedef struct
 
 }RCC_TypeDef;
 
-#define RCC ((RCC_TypeDef *)RCC_BASE);
-#define GPIOA ((GPIO_TypeDef *)GPIOA_BASE);
-#define GPIOB ((GPIO_TypeDef *)GPIOB_BASE);
-#define GPIOC ((GPIO_TypeDef *)GPIOC_BASE);
-#define GPIOD ((GPIO_TypeDef *)GPIOD_BASE);
-#define GPIOE ((GPIO_TypeDef *)GPIOE_BASE);
-#define GPIOH ((GPIO_TypeDef *)GPIOH_BASE);
+#define RCC ((RCC_TypeDef *)RCC_BASE)
+
+#define GPIOA ((GPIO_TypeDef *)GPIOA_BASE)
+#define GPIOB ((GPIO_TypeDef *)GPIOB_BASE)
+#define GPIOC ((GPIO_TypeDef *)GPIOC_BASE)
+#define GPIOD ((GPIO_TypeDef *)GPIOD_BASE)
+#define GPIOE ((GPIO_TypeDef *)GPIOE_BASE)
+#define GPIOH ((GPIO_TypeDef *)GPIOH_BASE)
 
 #define GPIOA_EN 1<<0
-#define GPIOA_EN 1<<1
-#define GPIOA_EN 1<<2
-#define GPIOA_EN 1<<3
-#define GPIOA_EN 1<<4
-#define GPIOA_EN 1<<7
+#define GPIOB_EN 1<<1
+#define GPIOC_EN 1<<2
+#define GPIOD_EN 1<<3
+#define GPIOE_EN 1<<4
+#define GPIOH_EN 1<<7
 
 #define MODER_5_OUT 1<<10
 #define LED_PIN 1<<5

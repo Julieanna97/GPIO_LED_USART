@@ -64,9 +64,9 @@ typedef enum
 
 /* Initalization of GPIO modules*/
 void LIB_GPIO_Init(GPIO_TypeDef *GPIOx, GPIO_InitTypeDef *GPIO_Init);
-GPIO_PinState LIB_GPIO_readPinState(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin);
-void LIB_GPIO_writePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState);
-void LIB_GPIO_togglePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin);
+GPIO_PinState LIB_GPIO_ReadPinState(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin);
+void LIB_GPIO_WritePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState);
+void LIB_GPIO_TogglePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin);
 
 /**
  * @brief Enable clock signals for the corresponding
