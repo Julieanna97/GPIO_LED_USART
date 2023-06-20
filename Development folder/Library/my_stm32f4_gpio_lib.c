@@ -37,8 +37,10 @@ void LIB_GPIO_Init(GPIO_TypeDef *GPIOx, GPIO_InitTypeDef *GPIO_Init){
 				 * configure the bits in the AFR register
 				 */
 				temp = GPIOx->AFR[position >>3U];
+				// First deactivate afr
 		 		temp &= ~(0xFU <<((uint32_t)(position & 0x07U) * 4U));
-		 		temp |= ((uint32_t)(GPIO_Init->Alternate) << (((uint32_t)position & 0x07U)*4U)); 
+		 		// Secondly enable AFR
+				temp |= ((uint32_t)(GPIO_Init->Alternate) << (((uint32_t)position & 0x07U)*4U)); 
 		 		GPIOx->AFR[position >>3U] =  temp;
 		
 		}
@@ -51,7 +53,7 @@ void LIB_GPIO_Init(GPIO_TypeDef *GPIOx, GPIO_InitTypeDef *GPIO_Init){
 			
 		// Configure the register for output type
 		if((GPIO_Init->Mode == GPIO_MODE_OUTPUT_PP) || (GPIO_Init->Mode== GPIO_MODE_OUTPUT_OD) ||
-		(GPIO_Init->Mode== GPIO_MODE_AF_PP) || (GPIO_Init->Mode== GPIO_MODE_AF_OD)){
+		(GPIO_Init->Mode == GPIO_MODE_AF_PP) || (GPIO_Init->Mode== GPIO_MODE_AF_OD)){
 			
 			// We configure the speed using the OSPEED register
 			temp = GPIOx->OSPEEDR;
