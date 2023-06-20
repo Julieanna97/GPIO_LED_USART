@@ -1,5 +1,5 @@
-#include  "my_stm32f4_gpio_lib.h"
 // Includes our custom built library for GPIO at STM32F4x
+#include  "my_stm32f4_gpio_lib.h"
 
 // Initializes the struct
 GPIO_InitTypeDef		myGPIO_InitSruct;
@@ -17,9 +17,13 @@ int main(void){
 	LIB_GPIO_Init(GPIOA, &myGPIO_InitSruct);
 
 	// Forever-loop where we iterate between "high" and "low" state of the pin
-	while(1){
-	   for(int i = 0; i< 900000; i++){}
-		 LIB_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+	while(1)
+	{
+		for(int i = 0; i< 900000; i++)
+		{
+			LIB_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+			
+		}
 
 	}
    

@@ -11,7 +11,7 @@
 #define GPIO_OUTPUT_TYPE					0x00010U
 
 // Initializes our GPIO pin based on the specified settings
-void LIB_GPIO_Init(GPIO_TypeDef *GPIOx,GPIO_InitTypeDef *GPIO_Init){
+void LIB_GPIO_Init(GPIO_TypeDef *GPIOx, GPIO_InitTypeDef *GPIO_Init){
 	
 	// The variables that store our temporary values for the initialization
     uint32_t position;
@@ -26,43 +26,50 @@ void LIB_GPIO_Init(GPIO_TypeDef *GPIOx,GPIO_InitTypeDef *GPIO_Init){
 		ioposition = 0x01U << position;
 		iocurrent =  (uint32_t)(GPIO_Init->Pin)&ioposition;
 		
-
 		// Check if the pin should be activated
 		if(iocurrent == ioposition){
-		// Checks which function the pin should be activated with
-		if((GPIO_Init->Mode == GPIO_MODE_AF_PP) ||(GPIO_Init->Mode == GPIO_MODE_AF_OD)){
-		
-		 temp  =  GPIOx->AFR[position >>3U]; //Uppdaterar registreret med våra variabler för att konfigurera bitarna i AFR-registret
-		 temp &= ~(0xFU <<((uint32_t)(position & 0x07U) * 4U));
-		 temp |=((uint32_t)(GPIO_Init->Alternate) << (((uint32_t)position & 0x07U)*4U)); 
-		 GPIOx->AFR[position >>3U] =  temp;
+			
+			// Checks which function the pin should be activated with
+			// if selected pin mode is push-pull or open drain
+			if((GPIO_Init->Mode == GPIO_MODE_AF_PP) || (GPIO_Init->Mode == GPIO_MODE_AF_OD)){
+				
+				/* Updates the register with our variables to
+				 * configure the bits in the AFR register
+				 */
+				temp = GPIOx->AFR[position >>3U];
+		 		temp &= ~(0xFU <<((uint32_t)(position & 0x07U) * 4U));
+		 		temp |= ((uint32_t)(GPIO_Init->Alternate) << (((uint32_t)position & 0x07U)*4U)); 
+		 		GPIOx->AFR[position >>3U] =  temp;
 		
 		}
-			//Konfigurerar vi MODE-registret för vår pin
-		 temp  =  GPIOx->MODER;
-		 temp &=~(GPIO_MODER_MODE0 <<(position * 2U));
-		 temp |=(GPIO_Init->Mode & GPIO_MODE) <<(position *2U);
-		 GPIOx->MODER =  temp;
+
+		// Configuring the MODE register for our pin
+		temp = GPIOx->MODER;
+		temp &= ~(GPIO_MODER_MODE0 <<(position * 2U));
+		temp |= (GPIO_Init->Mode & GPIO_MODE) <<(position *2U);
+		GPIOx->MODER = temp;
 			
-		//Konfigurerar registret för output typ
-		if((GPIO_Init->Mode == GPIO_MODE_OUTPUT_PP) || (GPIO_Init->Mode== GPIO_MODE_OUTPUT_OD)||
-			  (GPIO_Init->Mode== GPIO_MODE_AF_PP) || (GPIO_Init->Mode== GPIO_MODE_AF_OD)){
-		//Konfigurerar vi hastigheten med hjälp av OSPEED-registreet	
-		  temp =  GPIOx->OSPEEDR;
-			temp &= ~(GPIO_OSPEEDER_OSPEEDR0 << (position *2U));
+		// Configure the register for output type
+		if((GPIO_Init->Mode == GPIO_MODE_OUTPUT_PP) || (GPIO_Init->Mode== GPIO_MODE_OUTPUT_OD) ||
+		(GPIO_Init->Mode== GPIO_MODE_AF_PP) || (GPIO_Init->Mode== GPIO_MODE_AF_OD)){
+			
+			// We configure the speed using the OSPEED register
+			temp = GPIOx->OSPEEDR;
+			temp &= ~(GPIO_OSPEEDER_OSPEEDR0 << (position * 2U));
 			temp |= (GPIO_Init->Speed <<(position *2U));
 			GPIOx->OSPEEDR =temp;
 					
 			temp =  GPIOx->OTYPER;
-			temp &= ~(GPIO_OTYPER_OT0 << (position *2U));
-			temp |= (((GPIO_Init->Mode & GPIO_OUTPUT_TYPE)>> 4U) <<(position *2U));
+			temp &= ~(GPIO_OTYPER_OT0 << (position * 2U));
+			temp |= (((GPIO_Init->Mode & GPIO_OUTPUT_TYPE)>> 4U) <<(position * 2U));
 			GPIOx->OTYPER =  temp;
 		}
-		//Konfigurerar PU PD läget
-		 temp  =  GPIOx->PUPDR;
-		 temp &=~(GPIO_PUPDR_PUPDR0 <<(position * 2U));
-		 temp |=((GPIO_Init->Pull) << (position *2U));
-		 GPIOx->PUPDR = temp;
+
+		// Configure the PU/PD mode
+		temp = GPIOx->PUPDR;
+		temp &= ~(GPIO_PUPDR_PUPDR0 <<(position * 2U));
+		temp |= ((GPIO_Init->Pull) << (position *2U));
+		GPIOx->PUPDR = temp;
 			
 			
 		
@@ -101,7 +108,7 @@ void LIB_GPIO_WritePin(GPIO_TypeDef *GPIOx,uint16_t GPIO_Pin,GPIO_PinState PinSt
 }
 
 // We toggle the status of the selected pin
-void LIB_GPIO_TogglePin(GPIO_TypeDef *GPIOx,uint16_t GPIO_Pin){
+void LIB_GPIO_TogglePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin){
 
 	 GPIOx->ODR ^= GPIO_Pin;
 }

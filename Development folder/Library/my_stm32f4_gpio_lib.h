@@ -27,6 +27,11 @@
 #define GPIO_PIN_ALL ((uint16_t) 0xFFFF)
 
 
+/* Various configuration mode bits to the I/O pins
+PP = push-pull
+OD = open drain + pull-up/down
+AF = alternate function
+*/
 #define GPIO_MODE_INPUT       0x00U
 #define GPIO_MODE_OUTPUT_PP   0x11U
 #define GPIO_MODE_OUTPUT_OD   0x01U
