@@ -1,5 +1,5 @@
 # GPIO_LED
-An application that controls the hardware of the STM32F411xC in order to control the IOn via the pins of the development board
+An application that controls the hardware of the STM32F411xC in order to control the IOn via the pins of the development board.
 
 The project will consist of the following structure:
 - main.c - Mainly responsible for the application's use
