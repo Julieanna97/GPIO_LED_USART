@@ -3,14 +3,9 @@
 
 #include "my_stm32f4_uart_driver.h"
 
-/**
- * @brief Defines constants related to UART's
- * corresponding modes and configuration types.
- */
 
 typedef struct
 {
-
 
 }UART_ComType;
 
@@ -26,6 +21,11 @@ typedef enum
     UART_BAUDRATE_115200 = 115200U
 
 
-}UART_BaudrateType;
+}UART_BaudRateType;
+
+int __LIB_UART_Write(int ch);
+int __LIB_UART_Read(void);
+void __LIB_UART_Init(UART_ComType *Com, UART_BaudRateType *BaudRate);
+
 
 #endif
