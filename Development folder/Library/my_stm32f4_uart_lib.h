@@ -3,11 +3,16 @@
 
 #include "my_stm32f4_uart_driver.h"
 
+#define USART_MODE_NONE ((uint32_t)0x00U)       // Transmitter and receiver are disabled
+#define USART_MODE_TX 0x0008U                    // Transmitter enabled
+#define USART_MODE_RX 0x0004U                    // Receiver enabled
+#define USART_MODE_DUPLEX (USART_MODE_TX | USART_MODE_RX) // Both transmitter and receiver enabled
+
 typedef enum
 {
     USART_NONE = USART_MODE_NONE,
-    USART_TX = USART_MODE_TX,
-    USART_RX = USART_MODE_RX,
+    USART_TE = USART_MODE_TX,
+    USART_RE = USART_MODE_RX,
     USART_DUPLEX = USART_MODE_DUPLEX
 
 }UART_ComType;
@@ -25,6 +30,7 @@ typedef enum
 
 
 }UART_BaudRateType;
+
 
 int __LIB_UART_Write(int ch);
 int __LIB_UART_Read(void);
