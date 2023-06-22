@@ -23,7 +23,7 @@ USART_RegTypeDef *usart2 = USART2;
 int __LIB_UART_Write(int ch)
 {
     while(!(usart1->SR, usart2->SR, usart6->SR & USART_SR_TXE));  // Wait until transmit data register is empty
-    usart1->DR = (ch & 0xFF);    // write the character to the data register
+    usart1->DR, usart2->DR, usart6->DR = (ch & 0xFF);    // write the character to the data register
 
     return ch;
 }
@@ -31,7 +31,7 @@ int __LIB_UART_Write(int ch)
 int __LIB_UART_Read(void)
 {
     while(!(usart1->SR, usart2->SR, usart6->SR & USART_SR_RXNE)); // Wait until read data register is not empty
-    int ch = usart1->DR; // read the next character from the data register
+    int ch = (usart1->DR | usart2->DR | usart6->DR); // read the next character from the data register
 
     return ch;
 }
