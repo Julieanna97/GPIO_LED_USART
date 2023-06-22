@@ -3,9 +3,12 @@
 
 #include "my_stm32f4_uart_driver.h"
 
-
-typedef struct
+typedef enum
 {
+    USART_NONE = USART_MODE_NONE,
+    USART_TX = USART_MODE_TX,
+    USART_RX = USART_MODE_RX,
+    USART_DUPLEX = USART_MODE_DUPLEX
 
 }UART_ComType;
 
