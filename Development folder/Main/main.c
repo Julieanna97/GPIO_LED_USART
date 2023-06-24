@@ -29,14 +29,21 @@ int main(void)
 
 	UART_StateType state;
 
-	for(state = ON; state != OFF; state++)
+	if (state == ON)
 	{
-		__LIB_UART_Write(data);
-
-		if(data > 'Z')
+		for(state = ON; state != OFF; state++)
 		{
-			break;
+			__LIB_UART_Write(data);
+
+			if(data > 'Z')
+			{
+				break;
+			}
 		}
+	}
+	else
+	{
+		state = OFF;
 	}
 
 	return 0;
