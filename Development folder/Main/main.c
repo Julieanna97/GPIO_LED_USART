@@ -27,23 +27,25 @@ int main(void)
 		
 	}UART_StateType;
 
-	UART_StateType state;
+	UART_StateType state = ON;
 
-	if (state == ON)
+	while(state == ON)
 	{
-		for(state = ON; state != OFF; state++)
+		for(int i = 0; i < 5; i++)
 		{
 			__LIB_UART_Write(data[state]);
 
-			if(data > 'Z')
+			if(data[i] > 'Z')
 			{
+				state = OFF;
 				break;
 			}
 		}
 	}
-	else
+
+	while(state == OFF)
 	{
-		state = OFF;
+		break;
 	}
 
 	return 0;
