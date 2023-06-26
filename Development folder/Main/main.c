@@ -14,8 +14,6 @@ int main(void)
 	 * and with baud rate 115200
 	 */
 	__LIB_UART_Init(&com, &baudRate);
-	
-	// LIB_GPIO_Init(GPIOA, &myGPIO_InitSruct);
 
 	// Write data to UART in a loop
 	char data[5] ={'H', 'E', 'L', 'L', 'O'};
