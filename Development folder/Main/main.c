@@ -33,7 +33,7 @@ int main(void)
 	{
 		for(state = ON; state != OFF; state++)
 		{
-			__LIB_UART_Write(data);
+			__LIB_UART_Write(data[state]);
 
 			if(data > 'Z')
 			{
