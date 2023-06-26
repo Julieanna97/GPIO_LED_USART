@@ -43,11 +43,6 @@ int main(void)
 		}
 	}
 
-	while(state == OFF)
-	{
-		break;
-	}
-
 	return 0;
    
 }
